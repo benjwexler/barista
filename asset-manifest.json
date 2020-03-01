@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/coffee-makers/static/css/main.8149653c.chunk.css",
+    "main.js": "/coffee-makers/static/js/main.0912aa65.chunk.js",
+    "main.js.map": "/coffee-makers/static/js/main.0912aa65.chunk.js.map",
+    "runtime-main.js": "/coffee-makers/static/js/runtime-main.0cc9b083.js",
+    "runtime-main.js.map": "/coffee-makers/static/js/runtime-main.0cc9b083.js.map",
+    "static/js/2.2609717a.chunk.js": "/coffee-makers/static/js/2.2609717a.chunk.js",
+    "static/js/2.2609717a.chunk.js.map": "/coffee-makers/static/js/2.2609717a.chunk.js.map",
+    "index.html": "/coffee-makers/index.html",
+    "precache-manifest.dd7134483535cb400cb2a82ade96e13b.js": "/coffee-makers/precache-manifest.dd7134483535cb400cb2a82ade96e13b.js",
+    "service-worker.js": "/coffee-makers/service-worker.js",
+    "static/css/main.8149653c.chunk.css.map": "/coffee-makers/static/css/main.8149653c.chunk.css.map",
+    "static/js/2.2609717a.chunk.js.LICENSE.txt": "/coffee-makers/static/js/2.2609717a.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/coffee-makers/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0cc9b083.js",
+    "static/js/2.2609717a.chunk.js",
+    "static/css/main.8149653c.chunk.css",
+    "static/js/main.0912aa65.chunk.js"
+  ]
+}
