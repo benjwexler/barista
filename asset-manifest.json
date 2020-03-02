@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/coffee-maker/static/css/main.460ac4be.chunk.css",
-    "main.js": "/coffee-maker/static/js/main.09631dad.chunk.js",
-    "main.js.map": "/coffee-maker/static/js/main.09631dad.chunk.js.map",
-    "runtime-main.js": "/coffee-maker/static/js/runtime-main.f516dbde.js",
-    "runtime-main.js.map": "/coffee-maker/static/js/runtime-main.f516dbde.js.map",
-    "static/js/2.600c1dbb.chunk.js": "/coffee-maker/static/js/2.600c1dbb.chunk.js",
-    "static/js/2.600c1dbb.chunk.js.map": "/coffee-maker/static/js/2.600c1dbb.chunk.js.map",
-    "index.html": "/coffee-maker/index.html",
-    "precache-manifest.87ae3f83a7088c6d5e4a8100d5deaadc.js": "/coffee-maker/precache-manifest.87ae3f83a7088c6d5e4a8100d5deaadc.js",
-    "service-worker.js": "/coffee-maker/service-worker.js",
-    "static/css/main.460ac4be.chunk.css.map": "/coffee-maker/static/css/main.460ac4be.chunk.css.map",
-    "static/js/2.600c1dbb.chunk.js.LICENSE.txt": "/coffee-maker/static/js/2.600c1dbb.chunk.js.LICENSE.txt"
+    "main.css": "/barista/static/css/main.460ac4be.chunk.css",
+    "main.js": "/barista/static/js/main.85fbf568.chunk.js",
+    "main.js.map": "/barista/static/js/main.85fbf568.chunk.js.map",
+    "runtime-main.js": "/barista/static/js/runtime-main.7a2d534b.js",
+    "runtime-main.js.map": "/barista/static/js/runtime-main.7a2d534b.js.map",
+    "static/js/2.f1d1c78f.chunk.js": "/barista/static/js/2.f1d1c78f.chunk.js",
+    "static/js/2.f1d1c78f.chunk.js.map": "/barista/static/js/2.f1d1c78f.chunk.js.map",
+    "index.html": "/barista/index.html",
+    "precache-manifest.2ffccdce02474cdd6d46475f02f0a71d.js": "/barista/precache-manifest.2ffccdce02474cdd6d46475f02f0a71d.js",
+    "service-worker.js": "/barista/service-worker.js",
+    "static/css/main.460ac4be.chunk.css.map": "/barista/static/css/main.460ac4be.chunk.css.map",
+    "static/js/2.f1d1c78f.chunk.js.LICENSE.txt": "/barista/static/js/2.f1d1c78f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.f516dbde.js",
-    "static/js/2.600c1dbb.chunk.js",
+    "static/js/runtime-main.7a2d534b.js",
+    "static/js/2.f1d1c78f.chunk.js",
     "static/css/main.460ac4be.chunk.css",
-    "static/js/main.09631dad.chunk.js"
+    "static/js/main.85fbf568.chunk.js"
   ]
 }
