@@ -1,29 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { useSpring, useChain, animated, useTransition } from 'react-spring'
+import { useSpring, animated, useTransition } from 'react-spring'
 import * as Promise from "bluebird";
-import { ESPRESSO, HOT_WATER, STEAMED_MILK, FOAM, brown } from './constants';
-
-
-const getIngredientsForDrink = (drink) => {
-  switch (drink) {
-    case 'espresso':
-      return ['espresso'];
-    case 'americano':
-      return ['espresso', 'hotWater'];
-    case 'latte':
-    case 'cappuccino':
-      return ['espresso', 'steamedMilk', 'foam'];
-    default:
-      return [];
-  }
-}
-
+import { ESPRESSO, HOT_WATER, STEAMED_MILK, FOAM, brown, getIngredientsForDrink } from './constants';
 
 function Coffee({ drink, prevDrink }) {
-  const espressoRef = useRef();
-  const waterRef = useRef();
   const [shouldShowEspresso, setShouldShowEspresso] = useState(false);
   const [shouldShowWater, setShouldShowWater] = useState(false);
   const [showMilk, shouldShowMilk] = useState(false);
@@ -33,49 +14,11 @@ function Coffee({ drink, prevDrink }) {
   const [espressoAdded, setEspressoAdded] = useState(false)
   const [waterAdded, setWateradded] = useState(false)
   const [foamAdded, setFoamAdded] = useState(false);
-
   const [shouldShowDrinkText, setShouldShowDrinkText] = useState(false)
-
-  const [ingredients, setIngredients] = useState([]);
   const ingredientsInDrink = getIngredientsForDrink(drink);
-  console.log('ingredientsInDrink', ingredientsInDrink)
-
-  useEffect(() => {
-
-  }, [drink])
-
-  // const addRemoveIngredient = (_shouldShowEspresso, ourIngredient) => {
-  //   const _ingredients = ingredients.slice()
-  //   if (_shouldShowEspresso) {
-  //     const index = _ingredients.findIndex(ingredient => ingredient === ourIngredient);
-  //     if (index === -1) {
-  //       setIngredients([..._ingredients, ourIngredient])
-  //     }
-  //   } else {
-  //     const index = _ingredients.findIndex(ingredient => ingredient === ourIngredient);
-  //     if (index !== -1) {
-  //       _ingredients.splice(index, 1)
-  //       setIngredients(_ingredients)
-  //     }
-  //   }
-  // }
-
-
-
-  // useEffect(() => {
-  //   addRemoveIngredient(shouldShowEspresso, 'espresso')
-
-  // }, [shouldShowEspresso])
-
-  // useEffect(() => {
-  //   addRemoveIngredient(shouldShowWater, 'hotWater')
-
-  // }, [shouldShowWater])
-
 
   const makeEspresso = async () => {
     const _tasks = [
-
       {
         function: () => setShouldShowEspresso(true),
         delay: 0,
@@ -86,7 +29,6 @@ function Coffee({ drink, prevDrink }) {
   }
 
   const makeAmericano = async () => {
-
     const _tasks = [
       {
         ingredient: ESPRESSO,
@@ -98,16 +40,13 @@ function Coffee({ drink, prevDrink }) {
         function: () => setShouldShowWater(true),
         delay: espressoAdded ? 0 : 450,
       },
-
     ]
     await timeOutChain(_tasks)
 
     return Promise.resolve(null)
   }
 
-
   const removeAmericano = async () => {
-
     const _tasks = [
       {
         ingredient: HOT_WATER,
@@ -123,9 +62,6 @@ function Coffee({ drink, prevDrink }) {
         function: async () => await Promise.resolve(null),
         delay: 700,
       },
-
-
-
     ]
     await timeOutChain(_tasks)
 
@@ -149,9 +85,6 @@ function Coffee({ drink, prevDrink }) {
         function: () => setMilkAmount(75),
         delay: 0,
       },
-
-
-
       {
         ingredient: STEAMED_MILK,
         function: () => shouldShowMilk(true),
@@ -196,14 +129,12 @@ function Coffee({ drink, prevDrink }) {
         function: () => setShowFoam(true),
         delay: 700,
       },
-
     ]
     await timeOutChain(_tasks)
     return Promise.resolve(null)
   }
 
   const removeLatte = async () => {
-    console.log('ingredientsInDrink', ingredientsInDrink)
     const _tasks = [
       {
         function: async () => {
@@ -264,7 +195,6 @@ function Coffee({ drink, prevDrink }) {
     ]
     await timeOutChain(_tasks)
     return Promise.resolve(null)
-
   }
 
 
@@ -273,7 +203,6 @@ function Coffee({ drink, prevDrink }) {
       return promiseChain.delay(currentTask.delay).then(async (chainResults) => {
         await currentTask.function()
         return currentTask.delay
-        // console.log('currentTask', currentTask.function())
         // currentTask().then(currentResult =>
         //     [ ...chainResults, currentResult ]
         // )
@@ -291,9 +220,7 @@ function Coffee({ drink, prevDrink }) {
     const getPrevDrinkAction = async (prevDrink) => {
       switch (prevDrink) {
         case 'americano':
-
           return removeAmericano();
-          break;
         case 'latte':
           return removeLatte();
         case 'cappuccino':
@@ -301,12 +228,8 @@ function Coffee({ drink, prevDrink }) {
         case 'espresso':
         default:
           return Promise.resolve(null)
-
-
-          break;
       }
     }
-
 
     const getCurrentDrinkAction = (drink) => {
       switch (drink) {
@@ -325,14 +248,11 @@ function Coffee({ drink, prevDrink }) {
     }
 
     const _tasks = [
-      
       {
-        
         function: async () => await setShouldShowDrinkText(false),
         delay: 0,
       },
       {
-        
         function: async () => await getPrevDrinkAction(prevDrink),
         delay: 0,
       },
@@ -341,57 +261,16 @@ function Coffee({ drink, prevDrink }) {
         delay: 0,
       },
       {
-        
         function: async () => await setShouldShowDrinkText(true),
         delay: 200,
       },
-
     ]
-    await timeOutChain(_tasks)
-
-
-
+    await timeOutChain(_tasks);
   }
 
-
   useEffect(() => {
-    console.log('drink', drink)
-    console.log('prevDrink', prevDrink)
-
-    update(drink, prevDrink)
-
+    update(drink, prevDrink);
   }, [drink])
-
-  useEffect(() => {
-    const _tasks = [
-      {
-        function: () => makeEspresso(),
-        delay: 0,
-      },
-      {
-        function: () => makeAmericano(),
-        delay: 1500,
-      },
-      {
-        function: () => makeEspresso(),
-        delay: 1500,
-      },
-      {
-        function: () => makeLatte(),
-        delay: 1500,
-      },
-
-    ]
-    // timeOutChain(_tasks)
-
-
-  }, [])
-
- 
-
-
-
-
 
   const espressoProps = useSpring({
     transform: shouldShowEspresso ? 'scaleY(1)' : 'scaleY(0)',
@@ -415,14 +294,12 @@ function Coffee({ drink, prevDrink }) {
     transform: shouldShowWater ? 'scaleY(1)' : 'scaleY(0)',
     height: '100%',
     bottom: 0,
-    // transform: 'scaleY(1)',
     background: 'rgb(198, 244, 255)',
     color: 'rgb(53, 123, 127)',
     config: {
       duration: 700,
     },
-    onRest: () => {
-    },
+    onRest: () => {},
   })
 
   const foamProps = useSpring({
@@ -430,7 +307,6 @@ function Coffee({ drink, prevDrink }) {
     height: `${foamAmount}%`,
     top: 0,
     transformOrigin: 'bottom',
-    // transform: 'scaleY(1)',
     background: 'white',
     color: brown,
     config: {
@@ -442,7 +318,6 @@ function Coffee({ drink, prevDrink }) {
       } else {
         setFoamAdded(false)
       }
-
     },
   })
 
@@ -450,20 +325,13 @@ function Coffee({ drink, prevDrink }) {
     transform: showMilk ? 'scaleY(1)' : 'scaleY(0)',
     height: `${milkAmount}%`,
     bottom: 0,
-    // transformOrigin: 'bottom';
-    // transform: 'scaleY(1)',
     background: 'rgb(246, 250, 220)',
     color: brown,
     config: {
       duration: 700,
     },
-    onRest: () => {
-    },
+    onRest: () => {},
   })
-
-  // useChain([espressoRef, waterRef], [0, 1])
-
-  const [toggle, set] = useState("blah")
 
   const [drinkText, setDrinktext] = useState('')
   const transitions = useTransition(drinkText, null, {
@@ -472,7 +340,6 @@ function Coffee({ drink, prevDrink }) {
     leave: { position: 'absolute', opacity: 0 },
     color: 'white',
     width: '100%',
-    // transition: 'all .5s';
     transformOrigin: 'bottom',
     config: {
       duration: 700,
@@ -480,33 +347,26 @@ function Coffee({ drink, prevDrink }) {
   })
 
   useEffect(() => {
-    if(shouldShowDrinkText) {
+    if (shouldShowDrinkText) {
       setDrinktext(drink)
     } else {
       setDrinktext('')
     }
   }, [shouldShowDrinkText])
 
-
-
-
   return (
     <>
-    
       <div style={{ display: 'flex', margin: 'auto', justifyContent: 'center' }}>
         <div className="cupBodyContainer">
-        <div className="drinkTextContainer">
-      {transitions.map(({ item, key, props }) => {
-        console.log('item', item)
-        console.log('props', props)
-         return (
-           <animated.div class="drinkText" onClick={() => set("YO")} style={props}>{item}</animated.div>
-         ) 
-      }
-      )}
-      </div>
+          <div className="drinkTextContainer">
+            {transitions.map(({ item, key, props }) => {
+              return (
+                <animated.div className="drinkText" key={item} style={props}>{item}</animated.div>
+              )
+            }
+            )}
+          </div>
           <div className="rectangle">
-
             <animated.div
               className="overlay"
               style={waterProps}
@@ -528,6 +388,7 @@ function Coffee({ drink, prevDrink }) {
               <div style={{ textAlign: 'center', margin: 'auto' }}>Steamed Milk</div>
             </animated.div>
           </div>
+
           <div className="cupBottom">
             <animated.div
               className="overlay"
