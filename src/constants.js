@@ -21,6 +21,18 @@ const _drinks = [
   {
     value: 'cappuccino',
     label: 'Cappuccino',
+  },
+  {
+    value: 'macchiato',
+    label: 'Macchiato',
+  },
+  {
+    value: 'red-eye',
+    label: 'Red-Eye',
+  },
+  {
+    value: 'mocha',
+    label: 'Mocha',
   }
 ];
 
@@ -39,6 +51,12 @@ export const getIngredientsForDrink = (drink) => {
     case 'latte':
     case 'cappuccino':
       return ['espresso', 'steamedMilk', 'foam'];
+    case 'macchiato':
+      return ['espresso', 'foam'];
+    case 'red-eye':
+      return ['espresso', 'drip-coffee'];
+    case 'mocha':
+      return ['espresso', 'chocolate', 'steamedMilk', 'whipped-cream']
     default:
       return [];
   }
