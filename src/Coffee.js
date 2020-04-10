@@ -13,9 +13,12 @@ function Coffee({ drink, prevDrink }) {
   const [showFoam, setShowFoam] = useState(false)
   const [espressoAdded, setEspressoAdded] = useState(false)
   const [waterAdded, setWateradded] = useState(false)
-  const [foamAdded, setFoamAdded] = useState(false);
   const [shouldShowDrinkText, setShouldShowDrinkText] = useState(false)
   const ingredientsInDrink = getIngredientsForDrink(drink);
+  const [shouldShowDripCoffee, setShouldShowDripCoffee] = useState(false);
+  const [shouldShowChocolate, setShouldShowChocolate] = useState(false);
+  const [chocolateAmount, setChocolateAmount] = useState(0);
+  const [shouldShowWhippedCream, setsShouldShowWhippedCream] = useState(false);
 
   const makeEspresso = async () => {
     const _tasks = [
@@ -38,6 +41,24 @@ function Coffee({ drink, prevDrink }) {
       {
         ingredient: HOT_WATER,
         function: () => setShouldShowWater(true),
+        delay: espressoAdded ? 0 : 450,
+      },
+    ]
+    await timeOutChain(_tasks)
+
+    return Promise.resolve(null)
+  }
+
+  const makeRedEye = async () => {
+    const _tasks = [
+      {
+        ingredient: ESPRESSO,
+        function: () => setShouldShowEspresso(true),
+        delay: 0,
+      },
+      {
+        ingredient: HOT_WATER,
+        function: () => setShouldShowDripCoffee(true),
         delay: espressoAdded ? 0 : 450,
       },
     ]
@@ -93,6 +114,66 @@ function Coffee({ drink, prevDrink }) {
       {
         ingredient: FOAM,
         function: () => setShowFoam(true),
+        delay: 700,
+      },
+
+    ]
+    await timeOutChain(_tasks)
+    return Promise.resolve(null)
+  }
+
+  const makeMacchiato = async () => {
+    const _tasks = [
+      {
+        ingredient: ESPRESSO,
+        function: () => makeEspresso(),
+        delay: !waterAdded ? 0 : 450,
+      },
+      {
+        ingredient: FOAM,
+        function: () => setFoamAmount(70),
+        delay: 0,
+      },
+      {
+        ingredient: FOAM,
+        function: () => setShowFoam(true),
+        delay: 700,
+      },
+
+    ]
+    await timeOutChain(_tasks)
+    return Promise.resolve(null)
+  }
+
+  const makeMocha = async () => {
+    const _tasks = [
+      {
+        ingredient: ESPRESSO,
+        function: () => makeEspresso(),
+        delay: !waterAdded ? 0 : 450,
+      },
+      {
+        function: () => setShouldShowChocolate(true),
+        delay: 0,
+      },
+      {
+        function: () => setChocolateAmount(20),
+        delay: 400,
+      },
+
+      {
+        ingredient: STEAMED_MILK,
+        function: () => setMilkAmount(50),
+        delay: 0,
+      },
+
+      {
+        ingredient: STEAMED_MILK,
+        function: () => shouldShowMilk(true),
+        delay: 0,
+      },
+      {
+        function: () => setsShouldShowWhippedCream(true),
         delay: 700,
       },
 
@@ -158,7 +239,84 @@ function Coffee({ drink, prevDrink }) {
       },
       {
         function: async () => await Promise.resolve(null),
-        delay: !ingredientsInDrink.some((ingredient) => ingredient === 'steamedMilk' || ingredient === 'foam') ? 400 : 0,
+        delay: !ingredientsInDrink.some((ingredient) => ingredient === 'steamedMilk' || ingredient === 'foam') ? 700 : 0,
+      },
+    ]
+    await timeOutChain(_tasks)
+    return Promise.resolve(null)
+
+  }
+
+  const removeMacchiato = async () => {
+    const _tasks = [
+      {
+        function: async () => {
+          if (!ingredientsInDrink.some((ingredient) => ingredient === 'foam')) {
+            return await setShowFoam(false)
+          }
+          return await Promise.resolve(null)
+
+        },
+        // delay: !ingredientsInDrink.some((ingredient) => ingredient === 'foam') ? 700 : 0,
+        delay: 0,
+      },
+    ]
+    await timeOutChain(_tasks)
+    return Promise.resolve(null)
+
+  }
+
+  const removeMocha = async () => {
+    const _tasks = [
+      {
+        function: async () => {
+          if (!ingredientsInDrink.some((ingredient) => ingredient === 'whipped-cream')) {
+            return await setsShouldShowWhippedCream(false)
+          }
+          return await Promise.resolve(null)
+        },
+        // delay: !ingredientsInDrink.some((ingredient) => ingredient === 'foam') ? 700 : 0,
+        delay: 0,
+      },
+      {
+        function: async () => {
+          if (!ingredientsInDrink.some((ingredient) => ingredient === 'steamedMilk')) {
+            return await shouldShowMilk(false)
+          }
+          return await Promise.resolve(null)
+        },
+        // delay: !ingredientsInDrink.some((ingredient) => ingredient === 'foam') ? 700 : 0,
+        delay: 400,
+      },
+      {
+        function: async () => {
+          if (!ingredientsInDrink.some((ingredient) => ingredient === 'chocolate')) {
+            setChocolateAmount(0);
+            return await setShouldShowChocolate(false)
+          }
+          return await Promise.resolve(null)
+        },
+        // delay: !ingredientsInDrink.some((ingredient) => ingredient === 'foam') ? 700 : 0,
+        delay: 400,
+      },
+
+    ]
+    await timeOutChain(_tasks)
+    return Promise.resolve(null)
+
+  }
+
+  const removeRedEye = async () => {
+    const _tasks = [
+      {
+        function: async () => {
+          if (!ingredientsInDrink.some((ingredient) => ingredient === 'drip-coffee')) {
+            return await setShouldShowDripCoffee(false)
+          }
+          return await Promise.resolve(null)
+
+        },
+        delay: !ingredientsInDrink.some((ingredient) => ingredient === 'drip-coffee') ? 700 : 0,
       },
     ]
     await timeOutChain(_tasks)
@@ -190,7 +348,7 @@ function Coffee({ drink, prevDrink }) {
       },
       {
         function: async () => await Promise.resolve(null),
-        delay: !ingredientsInDrink.some((ingredient) => ingredient === 'steamedMilk' || ingredient === 'foam') ? 400 : 0,
+        delay: !ingredientsInDrink.some((ingredient) => ingredient === 'steamedMilk' || ingredient === 'foam') ? 700 : 0,
       },
     ]
     await timeOutChain(_tasks)
@@ -209,8 +367,6 @@ function Coffee({ drink, prevDrink }) {
       }
       );
     }, Promise.resolve([])).then(arrayOfResults => {
-      return console.log('arrayOfResults', arrayOfResults)
-      // Do something with all results
     });
 
   }
@@ -225,6 +381,12 @@ function Coffee({ drink, prevDrink }) {
           return removeLatte();
         case 'cappuccino':
           return removeCappuccino();
+        case 'macchiato':
+          return removeMacchiato();
+        case 'red-eye':
+          return removeRedEye();
+        case 'mocha':
+          return removeMocha();
         case 'espresso':
         default:
           return Promise.resolve(null)
@@ -241,7 +403,12 @@ function Coffee({ drink, prevDrink }) {
           return makeLatte();
         case 'cappuccino':
           return makeCappuccino();
-
+        case 'macchiato':
+          return makeMacchiato();
+        case 'red-eye':
+          return makeRedEye();
+        case 'mocha':
+          return makeMocha();
         default:
           return Promise.resolve(null)
       }
@@ -299,38 +466,69 @@ function Coffee({ drink, prevDrink }) {
     config: {
       duration: 700,
     },
-    onRest: () => {},
+    onRest: () => { },
   })
 
   const foamProps = useSpring({
     transform: showFoam ? 'scaleY(1)' : 'scaleY(0)',
     height: `${foamAmount}%`,
-    top: 0,
+    top: !showMilk ? `${100 - foamAmount}%` : '0%',
     transformOrigin: 'bottom',
     background: 'white',
     color: brown,
     config: {
       duration: 400,
     },
-    onRest: () => {
-      if (showFoam) {
-        setFoamAdded(true)
-      } else {
-        setFoamAdded(false)
-      }
-    },
+    onRest: () => { },
   })
 
   const milkProps = useSpring({
     transform: showMilk ? 'scaleY(1)' : 'scaleY(0)',
     height: `${milkAmount}%`,
-    bottom: 0,
+    bottom: `${chocolateAmount}%`,
     background: 'rgb(246, 250, 220)',
     color: brown,
     config: {
       duration: 700,
     },
-    onRest: () => {},
+    onRest: () => { },
+  })
+
+  const dripCoffeeProps = useSpring({
+    transform: shouldShowDripCoffee ? 'scaleY(1)' : 'scaleY(0)',
+    height: `${100}%`,
+    bottom: 0,
+    background: 'rgb(41, 31, 24)',
+    color: 'white',
+    config: {
+      duration: 700,
+    },
+    onRest: () => { },
+  })
+
+  const chocolateProps = useSpring({
+    transform: shouldShowChocolate ? 'scaleY(1)' : 'scaleY(0)',
+    height: `${20}%`,
+    bottom: 0,
+    background: 'rgb(41, 31, 24)',
+    color: 'white',
+    config: {
+      duration: 400,
+    },
+    onRest: () => { },
+  })
+
+  const whippedCreamProps = useSpring({
+    transform: shouldShowWhippedCream ? 'scaleY(1)' : 'scaleY(0)',
+    top: 0,
+    height: `${30}%`,
+    bottom: 0,
+    background: 'white',
+    color: brown,
+    config: {
+      duration: 400,
+    },
+    onRest: () => { },
   })
 
   const [drinkText, setDrinktext] = useState('')
@@ -352,7 +550,7 @@ function Coffee({ drink, prevDrink }) {
     } else {
       setDrinktext('')
     }
-  }, [shouldShowDrinkText])
+  }, [shouldShowDrinkText, drink])
 
   return (
     <>
@@ -361,7 +559,7 @@ function Coffee({ drink, prevDrink }) {
           <div className="drinkTextContainer">
             {transitions.map(({ item, key, props }) => {
               return (
-                <animated.div className="drinkText" key={item} style={props}>{item}</animated.div>
+                <animated.div className="drinkText" key={key} style={props}>{item}</animated.div>
               )
             }
             )}
@@ -387,6 +585,28 @@ function Coffee({ drink, prevDrink }) {
             >
               <div style={{ textAlign: 'center', margin: 'auto' }}>Steamed Milk</div>
             </animated.div>
+
+            <animated.div
+              className="overlay"
+              style={dripCoffeeProps}
+            >
+              <div style={{ textAlign: 'center', margin: 'auto' }}>Drip Coffee</div>
+            </animated.div>
+
+            <animated.div
+              className="overlay"
+              style={whippedCreamProps}
+            >
+              <div style={{ textAlign: 'center', margin: 'auto' }}>Whipped Cream</div>
+            </animated.div>
+
+            <animated.div
+              className="overlay"
+              style={chocolateProps}
+            >
+              <div style={{ textAlign: 'center', margin: 'auto' }}>Chocolate</div>
+            </animated.div>
+
           </div>
 
           <div className="cupBottom">
