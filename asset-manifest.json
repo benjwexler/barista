@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/barista/static/css/main.460ac4be.chunk.css",
-    "main.js": "/barista/static/js/main.85fbf568.chunk.js",
-    "main.js.map": "/barista/static/js/main.85fbf568.chunk.js.map",
+    "main.js": "/barista/static/js/main.97ec16a3.chunk.js",
+    "main.js.map": "/barista/static/js/main.97ec16a3.chunk.js.map",
     "runtime-main.js": "/barista/static/js/runtime-main.7a2d534b.js",
     "runtime-main.js.map": "/barista/static/js/runtime-main.7a2d534b.js.map",
-    "static/js/2.f1d1c78f.chunk.js": "/barista/static/js/2.f1d1c78f.chunk.js",
-    "static/js/2.f1d1c78f.chunk.js.map": "/barista/static/js/2.f1d1c78f.chunk.js.map",
+    "static/js/2.311821bc.chunk.js": "/barista/static/js/2.311821bc.chunk.js",
+    "static/js/2.311821bc.chunk.js.map": "/barista/static/js/2.311821bc.chunk.js.map",
     "index.html": "/barista/index.html",
-    "precache-manifest.2ffccdce02474cdd6d46475f02f0a71d.js": "/barista/precache-manifest.2ffccdce02474cdd6d46475f02f0a71d.js",
+    "precache-manifest.f8d10dfe993a888c0edb5fb33fec061b.js": "/barista/precache-manifest.f8d10dfe993a888c0edb5fb33fec061b.js",
     "service-worker.js": "/barista/service-worker.js",
     "static/css/main.460ac4be.chunk.css.map": "/barista/static/css/main.460ac4be.chunk.css.map",
-    "static/js/2.f1d1c78f.chunk.js.LICENSE.txt": "/barista/static/js/2.f1d1c78f.chunk.js.LICENSE.txt"
+    "static/js/2.311821bc.chunk.js.LICENSE.txt": "/barista/static/js/2.311821bc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7a2d534b.js",
-    "static/js/2.f1d1c78f.chunk.js",
+    "static/js/2.311821bc.chunk.js",
     "static/css/main.460ac4be.chunk.css",
-    "static/js/main.85fbf568.chunk.js"
+    "static/js/main.97ec16a3.chunk.js"
   ]
 }
