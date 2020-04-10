@@ -1,6 +1,6 @@
 {
   "name": "coffee",
-  "homepage": "http://benjwexler.github.io/coffee-maker",
+  "homepage": "http://benjwexler.github.io/barista",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
